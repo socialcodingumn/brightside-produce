@@ -12,12 +12,6 @@ class Item(Resource):
         required=True,
         help="This field cannot be left blank!"
     )
-    parser.add_argument(
-        'store_id',
-        type=int,
-        required=True,
-        help="every item needs a store id!"
-    )
 
     @jwt_required()
     def get(self, name):
@@ -60,7 +54,6 @@ class Item(Resource):
             item = ItemModel(name, **data)
         else:
             item.price = data['price']
-            item.store_id = data['store_id']
 
         item.save_to_db()
         return item.json()
